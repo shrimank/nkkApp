@@ -1,14 +1,62 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="nkkheader">
     <ion-title>
-      Ionic Blank
+      NKK
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-row>    
+  <ion-col col-10>
+      <ion-item>
+        <ion-input type="text" maxlength="10" name="custName" [(ngModel)]="custName" placeholder="Customer Name...">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col col-2 row-end>
+      <ion-item no-padding no-margin>
+        <button ion-button block clear item-end (click)="searchCustomer(custName)"><ion-icon name="search"></ion-icon> </button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+      <ion-fab right bottom>
+        <button ion-fab  (click)="navigateTo()"><ion-icon name="add"></ion-icon></button>
+      </ion-fab>
+      <ion-fab left bottom>
+        <button ion-fab  (click)="onOpenFileChooser()"><ion-icon name="cloud-upload"></ion-icon></button>
+      </ion-fab>
+
+      <ion-list>
+        <ion-item-sliding *ngFor="let customer of customers">
+          <ion-item>
+            <ion-avatar item-start>
+              <img [src]="customer.profilePhoto">
+            </ion-avatar>
+            <h2>{{customer.custName}}</h2>
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button color="primary">
+              <ion-icon name="text"></ion-icon>
+              {{customer.mobileNo}}
+            </button>
+            <button ion-button color="secondary">
+              <ion-icon name="call"></ion-icon>
+              Call
+            </button>
+          </ion-item-options>
+          <ion-item-options side="right">
+            <button ion-button color="primary">
+              <ion-icon name="mail"></ion-icon>
+              Email
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+<ion-label>
+  {{errorMsg}}
+</ion-label>
+  
+  
+
 </ion-content>
