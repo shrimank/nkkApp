@@ -7,56 +7,61 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row>    
-  <ion-col col-10>
+  <ion-row>
+    <ion-col col-10>
       <ion-item>
         <ion-input type="text" maxlength="10" name="custName" [(ngModel)]="custName" placeholder="Customer Name...">
         </ion-input>
       </ion-item>
     </ion-col>
-    <ion-col col-2 row-end>
-      <ion-item no-padding no-margin>
-        <button ion-button block clear item-end (click)="searchCustomer(custName)"><ion-icon name="search"></ion-icon> </button>
-      </ion-item>
+    <ion-col col-2>
+      
+        <button ion-button outline small item-end (click)="searchCustomer(custName)" class="searchBtn" [disabled]="!custName">
+          <ion-icon name="search"></ion-icon>
+        </button>
+        <button ion-button outline small type="button" class="searchBtn" [disabled]="!custName" (click)="custName = ''">
+            <ion-icon name="close"></ion-icon>
+          </button>
+      
     </ion-col>
   </ion-row>
-      <ion-fab right bottom>
-        <button ion-fab  (click)="navigateTo()"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
-      <ion-fab left bottom>
-        <button ion-fab  (click)="onOpenFileChooser()"><ion-icon name="cloud-upload"></ion-icon></button>
-      </ion-fab>
+  <ion-fab right bottom>
+    <button ion-fab (click)="navigateTo()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 
-      <ion-list>
-        <ion-item-sliding *ngFor="let customer of customers">
-          <ion-item>
-            <ion-avatar item-start>
-              <img [src]="customer.profilePhoto">
-            </ion-avatar>
-            <h2>{{customer.custName}}</h2>
-          </ion-item>
-          <ion-item-options side="left">
-            <button ion-button color="primary">
-              <ion-icon name="text"></ion-icon>
-              {{customer.mobileNo}}
-            </button>
-            <button ion-button color="secondary">
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-          <ion-item-options side="right">
+
+  <ion-list color="primary">
+    <ion-item-sliding *ngFor="let customer of customers" (click)="viewCustomer(customer)">
+      <ion-item>
+        <ion-avatar item-start>
+          <ion-icon name="contact"></ion-icon>
+        </ion-avatar>
+        <h2 padding-top>{{customer.custName}}</h2>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary">
+          <ion-icon name="text"></ion-icon>
+          {{customer.mobileNo}}
+        </button>
+        <button ion-button color="secondary" (click)="callCustomer(customer.mobileNo)">
+          <ion-icon name="call"></ion-icon>
+          Call
+        </button>
+      </ion-item-options>
+      <!-- <ion-item-options side="right">
             <button ion-button color="primary">
               <ion-icon name="mail"></ion-icon>
               Email
             </button>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-<ion-label>
-  {{errorMsg}}
-</ion-label>
-  
-  
+          </ion-item-options> -->
+    </ion-item-sliding>
+  </ion-list>
+  <ion-label>
+    {{errorMsg}}
+  </ion-label>
+
+
 
 </ion-content>

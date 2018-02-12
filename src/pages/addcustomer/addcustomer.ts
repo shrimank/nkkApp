@@ -1,5 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+
+
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Customer,CUSTOMER_LIST } from '../../models/customer/customer.model';
 import { CustomerService } from '../../services/customer.service';
@@ -26,7 +29,8 @@ export class AddCustomerPage implements OnInit {
 
   constructor(public navCtrl: NavController,
     private customerService: CustomerService,
-  private toastCtrl:ToastController ) {
+  private toastCtrl:ToastController,
+ ) {
   }
 
   ngOnInit() {
@@ -54,8 +58,7 @@ export class AddCustomerPage implements OnInit {
                 this.addCustomerForm.value.acctNumber,
                 this.addCustomerForm.value.memberType,
                 this.addCustomerForm.value.address,
-                this.addCustomerForm.value.mobileNo,
-              'http://keenthemes.com/preview/metronic/theme/assets/layouts/layout5/img/avatar1.jpg');
+                this.addCustomerForm.value.mobileNo);
 
     this.customerService.addCustomer(cust);
     this.addCustomerForm.reset();

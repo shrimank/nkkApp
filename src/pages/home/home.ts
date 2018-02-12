@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import {  Http } from '@angular/http';
+import { NavController, ToastController } from 'ionic-angular';
+
+//import {  Http } from '@angular/http';
+
 
 import { AddCustomerPage } from '../addcustomer/addcustomer';
 import { Customer } from '../../models/customer/customer.model';
 import { CustomerService } from '../../services/customer.service';
-import { FileChooser } from '@ionic-native/file-chooser';
-import * as XLSX from 'xlsx';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { CustomerPage } from '../customer/customer';
 
 @Component({
   selector: 'page-home',
@@ -16,44 +18,59 @@ export class HomePage {
 
   custName: string;
   customers: Customer[];
-  errorMsg:string;
-  
+  errorMsg: string;
+
 
   constructor(public navCtrl: NavController,
-    private customerService:CustomerService,
-    private fileChooser:FileChooser,
-    private http: Http) {
-
-  }
+    private customerService: CustomerService,
+    private loadCtrl: LoadingController, private toastCtrl: ToastController) { }
 
   navigateTo() {
     this.navCtrl.push('AddCustomerPage');
   }
 
-  searchCustomer(name: string) {
-    this.customers =  this.customerService.getCustomerByName(name);
+  async searchCustomer(name: string) {
+    this.loader().present();
+
+    await this.customerService.getCustomerByName(name)
+      .then(
+      customers => {
+        this.loader().dismiss();
+        this.customers = customers;
+      },
+      (err) => {
+
+        this.loader().dismiss();
+        alert(err);
+      });
+
+
+
 
   }
 
-
-  onOpenFileChooser(){
-
-    this.fileChooser.open()
-  .then(uri => {
-      //this.errorMsg=uri;
-      // this.http.get(uri).subscribe(data =>{
-      //     this.extractCSVData(data);
-      // },err=>this.errorMsg=err)
-      alert(XLSX);
-      let data = XLSX.readFile(uri);
-      alert(data);
-      
-    }
-  )
-  .catch(e => this.errorMsg=e);
+  loader() {
+    let loader = this.loadCtrl.create({
+      content: "Please wait...",
+      duration: 1000
+    });
+    return loader;
   }
 
 
-  
+
+  viewCustomer(customer: Customer) {
+    this.navCtrl.push(CustomerPage, { 'customer': customer });
+  }
+
+
+  callCustomer(mobile: number) {
+    this.customerService.call('' + mobile);
+  }
+
+
+
+
+
 
 }

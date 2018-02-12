@@ -1,0 +1,73 @@
+<!--
+  Generated template for the CustomerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="nkkheader">
+    <ion-row>
+      <ion-col text-left col-2 item-end>
+        <ion-icon no-padding name="eye"></ion-icon>
+      </ion-col>
+      <ion-col col-9>
+        <ion-title>View Customer</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-row>
+        <ion-item padding color="primary">
+          <ion-avatar item-start>
+            <ion-icon name="contact"></ion-icon>
+          </ion-avatar>
+          <h2 text-wrap>{{customer.custName}}</h2>
+          <p>({{customer.custNumber}})</p>
+        </ion-item>
+      </ion-row>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <button ion-button icon-left clear>
+          <ion-icon name="information-circle"></ion-icon>
+          <div>{{customer.memberType}}</div>
+        </button>
+      </ion-row>
+
+      <ion-row>
+        <button ion-button icon-left clear>
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <div>{{customer.acctNumber}}</div>
+        </button>
+      </ion-row>
+      <ion-row>
+        <button ion-button icon-left clear (click)="callCustomer(customer.mobileNo)">
+          <ion-icon name="call"></ion-icon>
+          <div>{{customer.mobileNo}}</div>
+        </button>
+      </ion-row>
+
+      <ion-row color="secondary">
+        <button ion-button icon-left clear>
+          <ion-icon name="locate"></ion-icon>
+          <p text-wrap text-justify>{{customer.address}}</p>
+        </button>
+      </ion-row>
+    </ion-card-content>
+
+  </ion-card>
+
+
+
+
+</ion-content>
