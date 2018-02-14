@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/Rx';
 
 import { Customer } from '../../models/customer/customer.model';
@@ -21,6 +20,7 @@ export class DatabaseProvider {
    constructor(public sqlitePorter: SQLitePorter,
     private sqlite: SQLite,
     private http: Http) {
+      alert("calling dbp constructor");
     
       this.sqlite.create({
         name: 'data.db',
@@ -29,16 +29,14 @@ export class DatabaseProvider {
         .then((db: SQLiteObject) => {
           //let dbInstance = db._objectInstance;
           this.database = db;
+          alert('Database:'+this.database);
           this.http.get('assets/seed.sql')
            .subscribe(sql => { 
             this.sqlitePorter.importSqlToDb(db, sql['_body'])
-            .then(() => console.log('Imported'))
-            .catch(e => console.log("Error:",e));
+            .then(() => alert('Imported'))
+            .catch(e => alert("Error:"+e));
            });
-
-          
-
-        });
+        },(err) => alert("e:"+err));
 
   }
  
@@ -57,9 +55,9 @@ export class DatabaseProvider {
   // }
  
   addCustomer(customer: Customer) {
-    let queryArray = [customer.custNumber,customer.custName,customer.acctNumber,customer.memberType,customer.address,customer.mobileNo];
+    let queryArray = [customer.custNumber,customer.custName,customer.acctNumber,customer.memberShipNo,customer.address,customer.mobileNo];
     return this.database.
-    executeSql('INSERT INTO nkk_customer (custNumber, custName, acctNumber,memberType,address,mobileNo) VALUES (?, ?, ?, ?, ?, ?)', queryArray).then(data => {
+    executeSql('INSERT INTO nkk_customer (custNumber, custName, acctNumber,memberShipNo,address,mobileNo) VALUES (?, ?, ?, ?, ?, ?)', queryArray).then(data => {
       return data;
     }, err => {
       console.log('Error: ', err);
@@ -80,7 +78,7 @@ export class DatabaseProvider {
             data.rows.item(i).custName,
             data.rows.item(i).custNumber, 
             data.rows.item(i).acctNumber,
-             data.rows.item(i).memberType,
+             data.rows.item(i).memberShipNo,
              data.rows.item(i).address,
              data.rows.item(i).mobileNo ));
         }

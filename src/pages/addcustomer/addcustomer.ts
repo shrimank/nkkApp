@@ -1,9 +1,9 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { Customer,CUSTOMER_LIST } from '../../models/customer/customer.model';
 import { CustomerService } from '../../services/customer.service';
 import { ToastController } from 'ionic-angular';
@@ -25,10 +25,8 @@ export class AddCustomerPage implements OnInit {
   customer: Customer;
   customers: Customer[];
   addCustomerForm: FormGroup;
-  memberType: string[] = ['Regular', 'Associate'];
 
-  constructor(public navCtrl: NavController,
-    private customerService: CustomerService,
+  constructor(private customerService: CustomerService,
   private toastCtrl:ToastController,
  ) {
   }
@@ -38,7 +36,7 @@ export class AddCustomerPage implements OnInit {
       'custNumber': new FormControl(null, Validators.required),
       'custName': new FormControl(null, Validators.required),
       'acctNumber': new FormControl(null, Validators.required),
-      'memberType': new FormControl(this.memberType[0], Validators.required),
+      'memberShipNo': new FormControl(null, Validators.required),
       'address': new FormControl(null, Validators.required),
       'mobileNo': new FormControl(null, Validators.required)
     });
@@ -56,7 +54,7 @@ export class AddCustomerPage implements OnInit {
     new Customer(this.addCustomerForm.value.custName,
                 this.addCustomerForm.value.custNumber,
                 this.addCustomerForm.value.acctNumber,
-                this.addCustomerForm.value.memberType,
+                this.addCustomerForm.value.memberShipNo,
                 this.addCustomerForm.value.address,
                 this.addCustomerForm.value.mobileNo);
 

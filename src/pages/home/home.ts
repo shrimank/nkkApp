@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 //import {  Http } from '@angular/http';
 
 
-import { AddCustomerPage } from '../addcustomer/addcustomer';
 import { Customer } from '../../models/customer/customer.model';
 import { CustomerService } from '../../services/customer.service';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
@@ -23,7 +22,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     private customerService: CustomerService,
-    private loadCtrl: LoadingController, private toastCtrl: ToastController) { }
+    private loadCtrl: LoadingController) { }
 
   navigateTo() {
     this.navCtrl.push('AddCustomerPage');
@@ -68,6 +67,11 @@ export class HomePage {
     this.customerService.call('' + mobile);
   }
 
+
+  clear(){
+    this.customers = [];
+    this.custName='';
+  }
 
 
 

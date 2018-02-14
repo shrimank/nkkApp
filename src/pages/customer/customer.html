@@ -40,7 +40,7 @@
       <ion-row>
         <button ion-button icon-left clear>
           <ion-icon name="information-circle"></ion-icon>
-          <div>{{customer.memberType}}</div>
+          <div>{{customer.memberShipNo}}</div>
         </button>
       </ion-row>
 
@@ -57,11 +57,8 @@
         </button>
       </ion-row>
 
-      <ion-row color="secondary">
-        <button ion-button icon-left clear>
-          <ion-icon name="locate"></ion-icon>
-          <p text-wrap text-justify>{{customer.address}}</p>
-        </button>
+      <ion-row color="secondary" text-wrap text-justify>
+          <p>{{customer.address}}</p>
       </ion-row>
     </ion-card-content>
 

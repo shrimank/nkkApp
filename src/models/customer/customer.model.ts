@@ -2,19 +2,17 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Customer {
-    private custPkId : number;
-    public profilePhoto?: string = 'http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg';
-
+    custPkId: number;
     constructor(public custName: string,
         public custNumber: number,
         public acctNumber: string,
-        public memberType: string,
+        public memberShipNo: string,
         public address: string,
         public mobileNo: number) {
 
     }
 
-    
+
 
 }
 

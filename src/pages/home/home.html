@@ -19,7 +19,7 @@
         <button ion-button outline small item-end (click)="searchCustomer(custName)" class="searchBtn" [disabled]="!custName">
           <ion-icon name="search"></ion-icon>
         </button>
-        <button ion-button outline small type="button" class="searchBtn" [disabled]="!custName" (click)="custName = ''">
+        <button ion-button outline small type="button" class="searchBtn" [disabled]="!custName" (click)="custName = '';customers=[];">
             <ion-icon name="close"></ion-icon>
           </button>
       
